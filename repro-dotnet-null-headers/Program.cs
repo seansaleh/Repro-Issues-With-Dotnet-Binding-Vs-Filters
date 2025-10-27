@@ -30,27 +30,28 @@ async ValueTask<object?> TestHandlerFilter(EndpointFilterInvocationContext conte
 
     if (String.IsNullOrEmpty(idArgument))
     {
-        logger.LogError($"[FILTER] [${testName}] 'id' is null. Simulating a failure inside the filter...");
+        logger.LogError($"[FILTER] [{testName}] 'id' is null. Simulating a failure inside the filter...");
 
-        throw new Exception($"[FILTER] [${testName}] 'id' is null. Simulating a failure inside the filter...");
+        // Note, we use Conflict here instead of BadRequest because BadRequest is what naturally happens when the header is missing.
+        return Results.Conflict($"[FILTER] [{testName}] 'id' is null. Simulating a failure inside the filter...");
     }
 
     // This code is never reached if the exception is thrown
-    logger.LogInformation($"[FILTER] [${testName}] Filter is about to call next().");
+    logger.LogInformation($"[FILTER] [{testName}] Filter is about to call next().");
     return await next(context);
 }
 
 app.MapGet("/testFromHeader", ([FromHeader(Name = "X-My-Id")] string id, [FromHeader(Name = "X-Test-Name")] string testName) =>
     {
-        app.Logger.LogInformation("[HANDLER] [${testName}] Handler is running. ID is: {Id}", testName, id ?? "null");
-        return Results.Ok($"[${testName}] Handler ran. ID was: {id ?? "null"}");
+        app.Logger.LogInformation("[HANDLER] [{testName}] Handler is running. ID is: {Id}", testName, id ?? "null");
+        return Results.Ok($"[{testName}] Handler ran. ID was: {id ?? "null"}");
     })
     .AddEndpointFilter(TestHandlerFilter);
     
 app.MapGet("/testFromHeaderNullable", ([FromHeader(Name = "X-My-Id")] string? id, [FromHeader(Name = "X-Test-Name")] string testName) =>
     {
-        app.Logger.LogInformation("[HANDLER] [${testName}] Handler is running. ID is: {Id}", testName, id ?? "null");
-        return Results.Ok($"[${testName}] Handler ran. ID was: {id ?? "null"}");
+        app.Logger.LogInformation("[HANDLER] [{testName}] Handler is running. ID is: {Id}", testName, id ?? "null");
+        return Results.Ok($"[{testName}] Handler ran. ID was: {id ?? "null"}");
     })
     .AddEndpointFilter(TestHandlerFilter);
     
