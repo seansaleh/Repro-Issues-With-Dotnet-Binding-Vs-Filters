@@ -5,8 +5,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+// There is still an issue regardless of UseExceptionHandler and AddProblemDetails
+builder.Services.AddProblemDetails(); 
 
 var app = builder.Build();
+
+// There is still an issue regardless of UseExceptionHandler and AddProblemDetails
+app.UseExceptionHandler();
 
 // One theory on why this is different between production and development is that we have a
 // Developer Exception Page in development, but not in production.
