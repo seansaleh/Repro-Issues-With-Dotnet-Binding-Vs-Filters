@@ -5,8 +5,19 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddProblemDetails();
 
 var app = builder.Build();
+
+app.UseExceptionHandler(new ExceptionHandlerOptions
+{
+    StatusCodeSelector = ex => ex switch {
+        NotImplementedException => StatusCodes.Status501NotImplemented,
+        _ => StatusCodes.Status500InternalServerError
+    }
+});
+app.UseStatusCodePages();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
