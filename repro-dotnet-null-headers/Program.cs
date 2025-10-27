@@ -13,11 +13,8 @@ var app = builder.Build();
 // This forces it to exist in development too.
 app.UseDeveloperExceptionPage();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-}
+// Always MapOpenApi() so that we are sure it is not the difference between Development and Production.
+app.MapOpenApi();
 
 async ValueTask<object?> TestHandlerFilter(EndpointFilterInvocationContext context, EndpointFilterDelegate next)
 {
