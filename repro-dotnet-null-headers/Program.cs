@@ -8,6 +8,11 @@ builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
+// One theory on why this is different between production and development is that we have a
+// Developer Exception Page in development, but not in production.
+// This forces it to exist in development too.
+app.UseDeveloperExceptionPage();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

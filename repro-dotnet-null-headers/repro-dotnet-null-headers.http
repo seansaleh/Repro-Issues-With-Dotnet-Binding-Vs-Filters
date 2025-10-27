@@ -56,3 +56,10 @@ GET {{Production_HostAddress}}/testFromHeaderNullable/
 Accept: application/json
 X-Test-Name: [Production] Nullable Id: With Header
 X-My-Id: "abc-prod"
+
+### [Production] Force Exception to ensure we setup UseDeveloperExceptionPage properly
+
+GET {{Production_HostAddress}}/testFromHeaderNullable/
+Accept: application/json
+# X-Test-Name: [Production] Nullable Id: Without Header
+# X-My-Id: "abc-prod"
