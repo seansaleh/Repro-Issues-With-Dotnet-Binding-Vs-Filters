@@ -4,6 +4,9 @@ The issue: In Production my Filter code runs even when a `FromHeader` parameter 
 app.MapGet("/testFromHeader", ([FromHeader(Name = "X-My-Id")] string id
 ```
 
+For posterity, my fix was: Give up on using "Development" and use "Staging" and `IsStaging()` instead. I never tracked down this bug fully
+
+
 To test this for yourself: Run both projects and run the http requests from [repro-dotnet-null-headers.http](repro-dotnet-null-headers/repro-dotnet-null-headers.http)
 
 Here's the outcomes:
