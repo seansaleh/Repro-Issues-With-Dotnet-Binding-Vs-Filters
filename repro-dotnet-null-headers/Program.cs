@@ -53,6 +53,7 @@ app.MapGet("/testFromHeader", ([FromHeader(Name = "X-My-Id")] string id, [FromHe
     })
     .AddEndpointFilter(TestHandlerFilter);
     
+// When the string header is nullable then the filter code works as expected the same between Development and Production.
 app.MapGet("/testFromHeaderNullable", ([FromHeader(Name = "X-My-Id")] string? id, [FromHeader(Name = "X-Test-Name")] string testName) =>
     {
         app.Logger.LogInformation("[HANDLER] [{testName}] Handler is running. ID is: {Id}", testName, id ?? "null");
