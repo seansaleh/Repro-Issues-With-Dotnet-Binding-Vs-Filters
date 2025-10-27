@@ -1,0 +1,58 @@
+@Development_HostAddress = http://localhost:5123
+@Production_HostAddress = http://localhost:5124
+
+### [Development] Without Header
+
+GET {{Development_HostAddress}}/testFromHeader/
+Accept: application/json
+X-Test-Name: [Development] Without Header
+# X-My-Id: "abc-dev"
+
+### [Development] With Header
+
+GET {{Development_HostAddress}}/testFromHeader/
+Accept: application/json
+X-Test-Name: [Development] With Header
+X-My-Id: "abc-dev"
+
+### [Development] Nullable Id: Without Header
+
+GET {{Development_HostAddress}}/testFromHeaderNullable/
+Accept: application/json
+X-Test-Name: [Development] Nullable Id: Without Header
+# X-My-Id: "abc-dev"
+
+### [Development] Nullable Id: With Header
+
+GET {{Development_HostAddress}}/testFromHeaderNullable/
+Accept: application/json
+X-Test-Name: [Development] Nullable Id: With Header
+X-My-Id: "abc-dev"
+
+### [Production] Without Header
+
+GET {{Production_HostAddress}}/testFromHeader/
+Accept: application/json
+X-Test-Name: [Production] Without Header
+# X-My-Id: "abc-prod"
+
+### [Production] With Header
+
+GET {{Production_HostAddress}}/testFromHeader/
+Accept: application/json
+X-Test-Name: [Production] With Header
+X-My-Id: "abc-prod"
+
+### [Production] Nullable Id: Without Header
+
+GET {{Production_HostAddress}}/testFromHeaderNullable/
+Accept: application/json
+X-Test-Name: [Production] Nullable Id: Without Header
+# X-My-Id: "abc-prod"
+
+### [Production] Nullable Id: With Header
+
+GET {{Production_HostAddress}}/testFromHeaderNullable/
+Accept: application/json
+X-Test-Name: [Production] Nullable Id: With Header
+X-My-Id: "abc-prod"
